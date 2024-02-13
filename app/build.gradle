@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
+
+}
+
+android {
+    namespace 'com.ide.codekit.casttotv'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.ide.codekit.casttotv"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+        buildConfig true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21"
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //Gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
+}

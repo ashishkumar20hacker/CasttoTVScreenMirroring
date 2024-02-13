@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Cast to TV - Screen Mirroring</string>
+    <string name="next">Next</string>
+    <string name="title_1">Cast to TV</string>
+    <string name="desc_1">Experience the magic of casting your favorite content to the big screen effortlessly.</string>
+    <string name="title_2">Screen Mirroring</string>
+    <string name="desc_2">Mirror your device screen to share moments, presentations, and entertainment in real-time.</string>
+    <string name="title_3">Video Player</string>
+    <string name="desc_3">Our cutting-edge video player delivers stunning visuals and immersive sound for an unforgettable entertainment journey.</string>
+    <string name="cast_to_tv">Cast to TV</string>
+    <string name="video_player">Video Player</string>
+    <string name="refer_a_friend">Refer a Friend</string>
+    <string name="screen_mirroring">Screen Mirroring</string>
+    <string name="main">Main</string>
+    <string name="required_permission">Required Permission</string>
+    <string name="external_storage_allow_to_access_photos_and_media_on_your_device"><font color="#ffffff" size="18"><b>External Storage</b> </font>\n<font color="#BFffffff" size="16">Allow to access photos and media on your device.</font></string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="rate_us">Rate Us!</string>
+    <string name="do_you_want_to_really_exit">Do you want to really exit ?</string>
+    <string name="go_back">Go Back</string>
+    <string name="exit">Exit</string>
+</resources>

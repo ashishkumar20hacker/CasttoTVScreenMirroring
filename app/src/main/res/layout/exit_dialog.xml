@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:paddingVertical="@dimen/_15sdp"
+    android:paddingHorizontal="@dimen/_10sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/smile" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:text="@string/rate_us"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/rate_us"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/stars" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="@string/do_you_want_to_really_exit"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/close"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:background="@drawable/go_back"
+                android:elevation="@dimen/_5sdp"
+                android:translationZ="@dimen/_8sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/go_back"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@null"
+                app:cornerRadius="@dimen/_12sdp"
+                app:elevation="@dimen/_8sdp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:backgroundTint="#4D5364"
+                android:elevation="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/exit"
+                android:textColor="@color/white"
+                android:translationZ="@dimen/_8sdp"
+                android:textSize="16sp"
+                app:cornerRadius="@dimen/_12sdp"
+                app:elevation="@dimen/_8sdp"
+                app:strokeColor="@color/green"
+                app:strokeWidth="@dimen/_1sdp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

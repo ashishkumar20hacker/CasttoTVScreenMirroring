@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomBottomNav">
+        <attr name="backgroundDrawable" format="reference" />
+        <attr name="selectedItemBackgroundDrawable" format="reference" />
+        <attr name="selectedItemIconColor" format="color" />
+        <attr name="selectedItemBackgroundColor" format="color" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="itemIconColor" format="color" />
+        <attr name="itemTextColor" format="color" />
+    </declare-styleable>
+</resources>
