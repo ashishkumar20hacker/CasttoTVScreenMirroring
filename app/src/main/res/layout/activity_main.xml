@@ -4,6 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".Activity.MainActivity">
+
+    <com.ide.codekit.casttotv.Extras.CustomBottomNav
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundDrawable="@drawable/btm_nav_bg"
+        app:itemIconColor="@color/grey"
+        app:itemTextColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:selectedItemBackgroundDrawable="@drawable/btm_nav_bg"
+        app:selectedItemIconColor="@color/green" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

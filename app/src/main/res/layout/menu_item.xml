@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
     android:background="@android:color/transparent">
 
     <RelativeLayout
         android:id="@+id/item_rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="12dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/darker_gray">
 
         <TextView
-            android:id="@+id/unselected"
-            android:layout_width="match_parent"
+            android:id="@+id/unselected_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/cast"
             android:fontFamily="@font/poppins"
+            android:layout_marginHorizontal="5dp"
             android:gravity="center"
-            android:text="@string/cast_to_tv"
+            android:layout_centerInParent="true"
             android:textColor="@color/green"
             android:textSize="12sp" />
 
     </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:cardCornerRadius="500dp"
-        android:translationZ="8dp"
-        android:layout_centerHorizontal="true">
+    <RelativeLayout
+        android:id="@+id/selected_rl"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/selected_card"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:translationZ="1dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="500dp" />
 
+        <ImageView
+            android:id="@+id/selected_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp"
+            android:elevation="20dp" />
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -47,11 +47,11 @@ public class DashboardActivity extends AppCompatActivity {
         binding.castToTvBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",0)));
         binding.castToTvNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",0)));
 
-        binding.screenMirroringBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",0)));
-        binding.screenMirroringNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",0)));
+        binding.screenMirroringBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",1)));
+        binding.screenMirroringNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",1)));
 
-        binding.videoPlayerBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",0)));
-        binding.videoPlayerNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",0)));
+        binding.videoPlayerBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",2)));
+        binding.videoPlayerNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",2)));
 
     }
 

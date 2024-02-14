@@ -1,10 +1,13 @@
 package com.ide.codekit.casttotv.Extras;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
@@ -18,19 +21,15 @@ public class CustomBottomNav extends LinearLayout {
     int selectedItemIconColor, selectedItemBackgroundColor, backgroundColor, itemIconColor, itemTextColor;
     Drawable backgroundDrawable, selectedItemBackgroundDrawable;
     List<CustomBottomNavModel> modelList;
-    CbnMenuItemModel itemModel;
+    Context context;
 
     public CustomBottomNav(Context context) {
         super(context);
     }
 
-    public CustomBottomNav(Context context, List<CustomBottomNavModel> modelList) {
-        super(context);
-        this.modelList = modelList;
-    }
-
     public CustomBottomNav(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomBottomNav, 0, 0);
 
         try {
@@ -45,25 +44,42 @@ public class CustomBottomNav extends LinearLayout {
             array.recycle();
         }
 
-//        if (backgroundDrawable != null) {
-//            this.setBackground(backgroundDrawable);
-//        } else {
-//            this.setBackgroundColor(backgroundColor);
-//        }
+        this.setOrientation(HORIZONTAL);
 
-        createMenuItem(context);
-
-
-//        itemModel = new CbnMenuItemModel()
 
     }
 
-    private void createMenuItem(Context context) {
+    public void populate(List<CustomBottomNavModel> modelList) {
+        this.modelList = modelList;
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context)
+                .getWindowManager()
+                .getDefaultDisplay()
+                .getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels / modelList.size();
+        createMenuItem(width);
+    }
+
+    private void createMenuItem(int width) {
         boolean isSelected = true;
         for (CustomBottomNavModel model : modelList) {
-            CbnMenuItem menuItem = new CbnMenuItem(context, model, isSelected);
+            CbnMenuItemModel itemModel = new CbnMenuItemModel(model, selectedItemIconColor, itemIconColor, itemTextColor);
+            if (backgroundDrawable != null) {
+                itemModel.setBackgroundDrawable(backgroundDrawable);
+            } else {
+                itemModel.setBackgroundColor(backgroundColor);
+            }
+            if (selectedItemBackgroundDrawable != null) {
+                itemModel.setSelectedItemBackgroundDrawable(selectedItemBackgroundDrawable);
+            } else {
+                itemModel.setSelectedItemBackgroundColor(selectedItemBackgroundColor);
+            }
+            CbnMenuItem menuItem = new CbnMenuItem(context, itemModel, isSelected);
+            menuItem.setMinimumWidth(width);
             this.addView(menuItem);
-            if (isSelected){
+            menuItem.getLayoutParams().width = width;
+            menuItem.requestLayout();
+            if (isSelected) {
                 isSelected = false;
             }
         }
