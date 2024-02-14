@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNav.setOnMenuItemSelectedListener(new CustomBottomNav.OnMenuItemSelectedListener() {
             @Override
             public void onMenuItemSelected(int itemId) {
+                binding.bottomNav.onSelected(itemId);
                 switch (itemId) {
                     case 0:
                         Toast.makeText(MainActivity.this, "0", Toast.LENGTH_SHORT).show();

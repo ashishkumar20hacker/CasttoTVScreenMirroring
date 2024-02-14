@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
@@ -84,6 +83,35 @@ public class CustomBottomNav extends LinearLayout {
             if (isSelected) {
                 isSelected = false;
             }
+        }
+    }
+
+    public void onSelected(int itemId){
+        switch (itemId) {
+            case 0:
+                CbnMenuItem menuItem1 = (CbnMenuItem) getChildAt(1);
+                menuItem1.onSelector(false);
+                CbnMenuItem menuItem2 = (CbnMenuItem) getChildAt(2);
+                menuItem2.onSelector(false);
+                CbnMenuItem sel1 = (CbnMenuItem) getChildAt(0);
+                sel1.onSelector(true);
+                break;
+            case 1:
+                CbnMenuItem menuItem3 = (CbnMenuItem) getChildAt(0);
+                menuItem3.onSelector(false);
+                CbnMenuItem menuItem4 = (CbnMenuItem) getChildAt(2);
+                menuItem4.onSelector(false);
+                CbnMenuItem sel2 = (CbnMenuItem) getChildAt(1);
+                sel2.onSelector(true);
+                break;
+            case 2:
+                CbnMenuItem menuItem5 = (CbnMenuItem) getChildAt(1);
+                menuItem5.onSelector(false);
+                CbnMenuItem menuItem6 = (CbnMenuItem) getChildAt(0);
+                menuItem6.onSelector(false);
+                CbnMenuItem sel3 = (CbnMenuItem) getChildAt(2);
+                sel3.onSelector(true);
+                break;
         }
     }
 

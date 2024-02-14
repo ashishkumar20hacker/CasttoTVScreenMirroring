@@ -1,5 +1,6 @@
 package com.ide.codekit.casttotv.Extras;
 
+import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -11,17 +12,16 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
-import com.ide.codekit.casttotv.Model.CustomBottomNavModel;
 import com.ide.codekit.casttotv.R;
 
 public class CbnMenuItem extends RelativeLayout {
     private Context context;
-    private RelativeLayout relativeLayout, selectedRl;
+    private RelativeLayout relativeLayout, selectedRl, mainRl;
     private CardView cardView;
     private TextView textView;
     private ImageView imageView;
     private int itemId;
-    private boolean isSelected;
+    private boolean isSelectedMain;
     CustomBottomNav.OnMenuItemSelectedListener onMenuItemSelectedListener;
 
     public CbnMenuItem(Context context, CbnMenuItemModel model, boolean isSelected) {
@@ -33,13 +33,15 @@ public class CbnMenuItem extends RelativeLayout {
     private void initialize(Context context, CbnMenuItemModel model, boolean isSelected) {
         LayoutInflater.from(context).inflate(R.layout.menu_item, this, true);
         this.itemId = model.getModel().getItemId();
-        this.isSelected = isSelected;
+        this.isSelectedMain = isSelected;
         relativeLayout = findViewById(R.id.item_rl);
         cardView = findViewById(R.id.selected_card);
         selectedRl = findViewById(R.id.selected_rl);
         textView = findViewById(R.id.unselected_tv);
         imageView = findViewById(R.id.selected_iv);
-
+        mainRl = findViewById(R.id.rl_main);
+        mainRl.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        relativeLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         if (model.getBackgroundDrawable() != null) {
             relativeLayout.setBackground(model.getBackgroundDrawable());
         } else {
@@ -66,8 +68,9 @@ public class CbnMenuItem extends RelativeLayout {
         relativeLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSelector();
-                onMenuItemSelectedListener.onMenuItemSelected(getItemId());
+                if (!isSelectedMain) {
+                    onMenuItemSelectedListener.onMenuItemSelected(getItemId());
+                }
             }
         });
     }
@@ -76,13 +79,13 @@ public class CbnMenuItem extends RelativeLayout {
         this.onMenuItemSelectedListener = onMenuItemSelectedListener;
     }
 
-    private void onSelector() {
-        if (!isSelected) {
-            isSelected = true;
+    public void onSelector(boolean b) {
+        if (b) {
+            isSelectedMain = true;
             textView.setVisibility(INVISIBLE);
             selectedRl.setVisibility(VISIBLE);
         } else {
-            isSelected = false;
+            isSelectedMain = false;
             selectedRl.setVisibility(INVISIBLE);
             textView.setVisibility(VISIBLE);
         }
