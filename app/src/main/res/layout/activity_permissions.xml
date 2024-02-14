@@ -77,45 +77,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="gone"
-                android:src="@drawable/tick" />
+                android:src="@drawable/tick"
+                android:visibility="gone" />
 
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/grant_permission_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:translationZ="@dimen/_2sdp"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foreground="@drawable/grant_permission"
-            app:cardBackgroundColor="@color/black"
-            android:layout_centerInParent="true"
-            app:cardElevation="@dimen/_8sdp" />
-
         <TextView
             android:id="@+id/grant_permission_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:background="@drawable/grant_permission"
-            android:elevation="@dimen/_50sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/btm_nav_bg"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:paddingHorizontal="@dimen/_8sdp"
             android:text="@string/grant_permission"
             android:textColor="@color/green"
             android:textSize="14sp" />
 
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.ide.codekit.casttotv.Model.CbnMenuItemModel;
 import com.ide.codekit.casttotv.R;
 
 public class CbnMenuItem extends RelativeLayout {
@@ -22,7 +24,7 @@ public class CbnMenuItem extends RelativeLayout {
     private ImageView imageView;
     private int itemId;
     private boolean isSelectedMain;
-    CustomBottomNav.OnMenuItemSelectedListener onMenuItemSelectedListener;
+    CustomBottomNav.OnMenuItemSelectedListener onMenuItemSelectedListener,onMenuItemSelectedListener2;
 
     public CbnMenuItem(Context context, CbnMenuItemModel model, boolean isSelected) {
         super(context);
@@ -58,6 +60,12 @@ public class CbnMenuItem extends RelativeLayout {
         textView.setCompoundDrawableTintList(ColorStateList.valueOf(model.getItemIconColor()));
         imageView.setImageResource(model.getModel().getItemIcon());
         imageView.setImageTintList(ColorStateList.valueOf(model.getSelectedItemIconColor()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            cardView.setOutlineAmbientShadowColor(model.getSelectedItemIconColor());
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            cardView.setOutlineSpotShadowColor(model.getSelectedItemIconColor());
+        }
         if (isSelected) {
             textView.setVisibility(INVISIBLE);
             selectedRl.setVisibility(VISIBLE);
@@ -70,6 +78,7 @@ public class CbnMenuItem extends RelativeLayout {
             public void onClick(View view) {
                 if (!isSelectedMain) {
                     onMenuItemSelectedListener.onMenuItemSelected(getItemId());
+                    onMenuItemSelectedListener2.onMenuItemSelected(getItemId());
                 }
             }
         });
@@ -77,6 +86,9 @@ public class CbnMenuItem extends RelativeLayout {
 
     public void setOnMItemSelectedListener(CustomBottomNav.OnMenuItemSelectedListener onMenuItemSelectedListener) {
         this.onMenuItemSelectedListener = onMenuItemSelectedListener;
+    }
+    public void setOnMItemSelectedListener2(CustomBottomNav.OnMenuItemSelectedListener onMenuItemSelectedListener) {
+        this.onMenuItemSelectedListener2 = onMenuItemSelectedListener;
     }
 
     public void onSelector(boolean b) {

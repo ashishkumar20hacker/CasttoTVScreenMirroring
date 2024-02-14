@@ -33,7 +33,7 @@ public class DashboardActivity extends AppCompatActivity {
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferences = new SharePreferences(this);
-        preferences.putBoolean(Constants.isFirstRun,false);
+        preferences.putBoolean(Constants.isFirstRun, false);
         Utils.applyGradientOnTv(binding.appNameTv, "#43E97B", "#38F9D7");
         Utils.applyGradientOnTv(binding.castToTvBt, "#43E97B", "#38F9D7");
         Utils.applyGradientOnTv(binding.videoPlayerBt, "#43E97B", "#38F9D7");
@@ -44,20 +44,24 @@ public class DashboardActivity extends AppCompatActivity {
         binding.closeDrawer.setOnClickListener(view -> binding.drawLay.closeDrawer(GravityCompat.START));
         binding.shareAppBt.setOnClickListener(view -> shareApp(this));
 
-        binding.castToTvBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",0)));
-        binding.castToTvNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",0)));
+        binding.castToTvBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID", 0)));
+        binding.castToTvNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID", 0)));
 
-        binding.screenMirroringBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",1)));
-        binding.screenMirroringNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",1)));
+        binding.screenMirroringBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID", 1)));
+        binding.screenMirroringNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID", 1)));
 
-        binding.videoPlayerBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",2)));
-        binding.videoPlayerNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID",2)));
+        binding.videoPlayerBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID", 2)));
+        binding.videoPlayerNav.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("selectedID", 2)));
+
+        binding.imageBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ShowMediaActivity.class).putExtra("title", "Images")));
+        binding.videosBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ShowMediaActivity.class).putExtra("title", "Videos")));
+        binding.audiosBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ShowMediaActivity.class).putExtra("title", "Audios")));
 
     }
 
     @Override
     public void onBackPressed() {
-        if (binding.drawLay.isOpen()){
+        if (binding.drawLay.isOpen()) {
             binding.drawLay.closeDrawer(GravityCompat.START);
         } else {
             exitDialog();

@@ -19,4 +19,11 @@
     <string name="do_you_want_to_really_exit">Do you want to really exit ?</string>
     <string name="go_back">Go Back</string>
     <string name="exit">Exit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="connect_to_a_device">Connect to a device</string>
+    <string name="no_device_found">No device found</string>
+    <string name="make_sure_your_phone_and_cast_device_are_connected_to_the_same_wi_fi">Make sure your phone and cast device are connected to the same Wi-Fi</string>
+    <string name="choose_connect_you_want">Choose connect you want</string>
+    <string name="how_to_start_screen_mirroring">How to Start Screen Mirroring ?</string>
 </resources>

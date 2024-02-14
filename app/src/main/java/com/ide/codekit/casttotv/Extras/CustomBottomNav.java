@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
+import com.ide.codekit.casttotv.Model.CbnMenuItemModel;
 import com.ide.codekit.casttotv.Model.CustomBottomNavModel;
 import com.ide.codekit.casttotv.R;
 
@@ -76,6 +77,12 @@ public class CustomBottomNav extends LinearLayout {
             }
             CbnMenuItem menuItem = new CbnMenuItem(context, itemModel, isSelected);
             menuItem.setOnMItemSelectedListener(onMenuItemSelectedListener);
+            menuItem.setOnMItemSelectedListener2(new OnMenuItemSelectedListener() {
+                @Override
+                public void onMenuItemSelected(int itemId) {
+                    onSelected(itemId);
+                }
+            });
             menuItem.setMinimumWidth(width);
             this.addView(menuItem);
             menuItem.getLayoutParams().width = width;

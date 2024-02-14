@@ -1,4 +1,4 @@
-package com.ide.codekit.casttotv.Extras;
+package com.ide.codekit.casttotv.Model;
 
 import android.graphics.drawable.Drawable;
 
