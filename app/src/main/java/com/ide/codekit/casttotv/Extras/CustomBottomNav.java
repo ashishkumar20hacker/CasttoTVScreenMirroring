@@ -22,6 +22,7 @@ public class CustomBottomNav extends LinearLayout {
     Drawable backgroundDrawable, selectedItemBackgroundDrawable;
     List<CustomBottomNavModel> modelList;
     Context context;
+    OnMenuItemSelectedListener onMenuItemSelectedListener;
 
     public CustomBottomNav(Context context) {
         super(context);
@@ -75,6 +76,7 @@ public class CustomBottomNav extends LinearLayout {
                 itemModel.setSelectedItemBackgroundColor(selectedItemBackgroundColor);
             }
             CbnMenuItem menuItem = new CbnMenuItem(context, itemModel, isSelected);
+            menuItem.setOnMItemSelectedListener(onMenuItemSelectedListener);
             menuItem.setMinimumWidth(width);
             this.addView(menuItem);
             menuItem.getLayoutParams().width = width;
@@ -85,4 +87,11 @@ public class CustomBottomNav extends LinearLayout {
         }
     }
 
+    public void setOnMenuItemSelectedListener(OnMenuItemSelectedListener onMenuItemSelectedListener) {
+        this.onMenuItemSelectedListener = onMenuItemSelectedListener;
+    }
+
+    public interface OnMenuItemSelectedListener {
+        void onMenuItemSelected(int itemId);
+    }
 }
