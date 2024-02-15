@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/back_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_14sdp"
+        android:src="@drawable/backbt" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Music Player"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <!-- Preview image -->
+    <ImageView
+        android:id="@+id/previewImageView"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_250sdp"
+        android:layout_below="@id/back_bt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/music_thumbnail" />
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_medium"
+        android:layout_below="@id/previewImageView"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <!-- SeekBar for controlling playback progress -->
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_tv"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:progressBackgroundTint="@color/white"
+        android:progressTint="@color/green"
+        android:thumbTint="@color/green" />
+
+    <TextView
+        android:id="@+id/current_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBar"
+        android:layout_marginStart="@dimen/_38sdp"
+        android:layout_marginBottom="@dimen/_25sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="00:00"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/max_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_38sdp"
+        android:layout_marginBottom="@dimen/_25sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="00:00"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+
+    <!-- Play/Pause button -->
+    <ImageView
+        android:id="@+id/playPauseButton"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_below="@id/max_progress"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_play" />
+
+
+</RelativeLayout>

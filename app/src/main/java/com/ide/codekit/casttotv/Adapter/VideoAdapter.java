@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ide.codekit.casttotv.Model.DataModel;
+import com.ide.codekit.casttotv.databinding.ItemAudioBinding;
 import com.ide.codekit.casttotv.databinding.ItemMediaBinding;
 import com.ide.codekit.casttotv.databinding.ItemVideoPlayerBinding;
 
@@ -23,6 +24,7 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
 
     public static final int VIEW_GRID = 1;
     public static final int VIEW_LINEAR = 2;
+    public static final int VIEW_AUDIO = 3;
 
     static DiffUtil.ItemCallback<DataModel> diffCallback = new DiffUtil.ItemCallback<DataModel>() {
         @Override
@@ -66,6 +68,10 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
                 ItemMediaBinding chargingBinding =
                         ItemMediaBinding.inflate(inflater, parent, false);
                 return new ViewHolderLinear(chargingBinding);
+            case VIEW_AUDIO:
+                ItemAudioBinding audioBinding =
+                        ItemAudioBinding.inflate(inflater, parent, false);
+                return new ViewHolderAudio(audioBinding);
             default:
                 throw new IllegalArgumentException("Invalid view type");
         }
@@ -84,6 +90,11 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
             case VIEW_LINEAR:
                 ViewHolderLinear chargingViewHolder = (ViewHolderLinear) holder;
                 bindCommonData(chargingViewHolder, dataModel);
+                // Additional logic specific to VIEW_TYPE_CHARGING
+                break;
+            case VIEW_AUDIO:
+                ViewHolderAudio audioViewHolder = (ViewHolderAudio) holder;
+                bindCommonData(audioViewHolder, dataModel);
                 // Additional logic specific to VIEW_TYPE_CHARGING
                 break;
         }
@@ -154,15 +165,54 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
             try {
                 Glide.with(context).load(dataModel.getPath()).into(imageView);
                 title.setText(dataModel.getName());
-                size.setText(dataModel.getSizeInMB() + "MB");
+                size.setText(dataModel.getSize());
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            sharebt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dataClickListener.onShare(dataModel);
+                }
+            });
+        }
+
+    }
+    class ViewHolderAudio extends ViewHolderCommon {
+        ImageView imageView,sharebt;
+        TextView title,size;
+
+        public ViewHolderAudio(ItemAudioBinding binding) {
+            super(binding.getRoot());
+            imageView = binding.previewIv;
+            sharebt = binding.share;
+            title = binding.name;
+            size = binding.size;
+        }
+
+        @Override
+        void loadImage(DataModel dataModel) {
+            try {
+                title.setText(dataModel.getName());
+                size.setText(dataModel.getSize());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            sharebt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dataClickListener.onShare(dataModel);
+                }
+            });
         }
 
     }
 
     public interface DataClickListener {
         void onDataClick(DataModel dataModel);
+
+        void onShare(DataModel model);
     }
 }

@@ -4,13 +4,13 @@ public class DataModel {
     private long id;
     private String path;
     private String name;
-    private double sizeInMB;
+    private String size;
 
-    public DataModel(long id, String path, String name, double sizeInMB) {
+    public DataModel(long id, String path, String name, String size) {
         this.id = id;
         this.path = path;
         this.name = name;
-        this.sizeInMB = sizeInMB;
+        this.size = size;
     }
 
     public long getId() {
@@ -37,11 +37,11 @@ public class DataModel {
         this.name = name;
     }
 
-    public double getSizeInMB() {
-        return sizeInMB;
+    public String getSize() {
+        return size;
     }
 
-    public void setSizeInMB(double sizeInMB) {
-        this.sizeInMB = sizeInMB;
+    public void setSize(String size) {
+        this.size = size;
     }
 }

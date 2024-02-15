@@ -1,19 +1,16 @@
 package com.ide.codekit.casttotv.Fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.ide.codekit.casttotv.Adapter.VideoAdapter;
 import com.ide.codekit.casttotv.Extras.Utils;
+import com.ide.codekit.casttotv.Extras.VideoDialog;
 import com.ide.codekit.casttotv.Model.DataModel;
-import com.ide.codekit.casttotv.R;
 import com.ide.codekit.casttotv.databinding.FragmentVideoPlayerBinding;
 
 import java.util.List;
@@ -87,18 +84,27 @@ public class VideoPlayerFragment extends Fragment {
     private void setVideoData() {
         List<DataModel> videoList;
         videoList = Utils.getAllVideoList(requireActivity());
-        VideoAdapter adapter = new VideoAdapter(new VideoAdapter.DataClickListener() {
-            @Override
-            public void onDataClick(DataModel dataModel) {
-//                startActivity(new Intent(DashboardActivity.this, PreviewActivity.class).putExtra("activityName", "DashboardActivity").putExtra("dataType", getString(R.string.charging) + " " + getString(R.string.animation)).putExtra("screenType", "lock").putExtra("dataUrl", url));
-            }
-        });
-        adapter.setViewType(VideoAdapter.VIEW_GRID);
-        binding.vpRv.setAdapter(adapter);
-        if (videoList.size() > 9) {
-            adapter.submitList(videoList.subList(0, 8));
+        if (videoList.size() == 0) {
+            binding.vpRv.setVisibility(View.GONE);
+            binding.loader.setVisibility(View.VISIBLE);
         } else {
+            VideoAdapter adapter = new VideoAdapter(new VideoAdapter.DataClickListener() {
+                @Override
+                public void onDataClick(DataModel dataModel) {
+                    VideoDialog dialog = new VideoDialog(requireActivity(),  dataModel.getPath());
+                    dialog.show();
+                }
+
+                @Override
+                public void onShare(DataModel model) {
+
+                }
+            });
+            adapter.setViewType(VideoAdapter.VIEW_GRID);
+            binding.vpRv.setAdapter(adapter);
             adapter.submitList(videoList);
+            binding.loader.setVisibility(View.GONE);
+            binding.vpRv.setVisibility(View.VISIBLE);
         }
     }
 }

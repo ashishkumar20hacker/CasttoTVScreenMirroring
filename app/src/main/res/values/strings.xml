@@ -26,4 +26,8 @@
     <string name="make_sure_your_phone_and_cast_device_are_connected_to_the_same_wi_fi">Make sure your phone and cast device are connected to the same Wi-Fi</string>
     <string name="choose_connect_you_want">Choose connect you want</string>
     <string name="how_to_start_screen_mirroring">How to Start Screen Mirroring ?</string>
+    <string name="no_videos_found">No Videos Found</string>
+    <string name="no_images_found">No Images Found</string>
+    <string name="no_audios_found">No Audios Found</string>
+    <string name="online_images">Online Images</string>
 </resources>

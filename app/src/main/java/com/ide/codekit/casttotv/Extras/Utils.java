@@ -7,6 +7,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -29,8 +31,12 @@ import com.ide.codekit.casttotv.BuildConfig;
 import com.ide.codekit.casttotv.Model.DataModel;
 import com.ide.codekit.casttotv.R;
 
+import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Utils {
     public static final int STORAGE_PERMISSION_REQ_CODE = 100;
@@ -89,6 +95,7 @@ public class Utils {
             //e.toString();
         }
     }
+
     public static void makeStatusBarTransparent(Activity context) {
         if (SDK_INT >= 19 && SDK_INT < 21) {
             setWindowFlag(context, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
@@ -196,11 +203,11 @@ public class Utils {
                     long videoId = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID));
                     String videoPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
                     String videoName = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME));
-                    long videoSizeInBytes = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media.SIZE));
+                    long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media.SIZE));
+                    String readableFileSize = getFileSize(fileSize);
 
-                    // Convert bytes to megabytes
 
-                    DataModel dataModel = new DataModel(videoId, videoPath, videoName, videoSizeInBytes);
+                    DataModel dataModel = new DataModel(videoId, videoPath, videoName, readableFileSize);
                     dataModelList.add(dataModel);
                 }
             }
@@ -213,6 +220,7 @@ public class Utils {
 
     public static List<String> getVideoFolders(Context context) {
         List<String> videoFolders = new ArrayList<>();
+        Set<String> folderPaths = new HashSet<>(); // Use Set to avoid duplicates
 
         String[] projection = {MediaStore.Video.Media.DATA};
         Uri videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
@@ -224,10 +232,12 @@ public class Utils {
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     String videoPath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
-                    String folderPath = videoPath.substring(0, videoPath.lastIndexOf("/")); // Extract folder path
+                    File videoFile = new File(videoPath);
+                    String folderPath = videoFile.getParent(); // Extract folder path using File's getParent method
 
-                    // Increment count for each folder
-                    videoFolders.add(folderPath);
+                    if (folderPath != null) {
+                        folderPaths.add(folderPath);
+                    }
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -238,6 +248,7 @@ public class Utils {
             }
         }
 
+        videoFolders.addAll(folderPaths); // Add unique folder paths to the list
         return videoFolders;
     }
 
@@ -265,13 +276,11 @@ public class Utils {
                 while (cursor.moveToNext()) {
                     String videoName = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME));
                     long videoId = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID));
-                    long videoSizeInBytes = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media.SIZE));
                     String videoPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+                    long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media.SIZE));
+                    String readableFileSize = getFileSize(fileSize);
 
-                    // Convert bytes to megabytes
-                    double videoSizeInMB = (videoSizeInBytes / (1024.0 * 1024.0));
-
-                    DataModel dataModel = new DataModel(videoId, videoPath, videoName, videoSizeInMB);
+                    DataModel dataModel = new DataModel(videoId, videoPath, videoName, readableFileSize);
                     dataModelList.add(dataModel);
                 }
             }
@@ -308,9 +317,9 @@ public class Utils {
                     long audioId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
                     String audioPath = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
                     String audioName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME));
-                    long audioSizeInBytes = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
-
-                    DataModel dataModel = new DataModel(audioId, audioPath, audioName, audioSizeInBytes);
+                    long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
+                    String readableFileSize = getFileSize(fileSize);
+                    DataModel dataModel = new DataModel(audioId, audioPath, audioName, readableFileSize);
                     audioFiles.add(dataModel);
                 } while (cursor.moveToNext());
             }
@@ -327,6 +336,7 @@ public class Utils {
 
     public static List<String> getAudioFolders(Context context) {
         List<String> audioFolders = new ArrayList<>();
+        Set<String> folderPaths = new HashSet<>(); // Use Set to avoid duplicates
 
         String[] projection = {MediaStore.Audio.Media.DATA};
         Uri audioUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -338,10 +348,12 @@ public class Utils {
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     String audioPath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
-                    String folderPath = audioPath.substring(0, audioPath.lastIndexOf("/")); // Extract folder path
+                    File audioFile = new File(audioPath);
+                    String folderPath = audioFile.getParent(); // Extract folder path using File's getParent method
 
-                    // Increment count for each folder
-                    audioFolders.add(folderPath);
+                    if (folderPath != null) {
+                        folderPaths.add(folderPath);
+                    }
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -352,6 +364,7 @@ public class Utils {
             }
         }
 
+        audioFolders.addAll(folderPaths); // Add unique folder paths to the list
         return audioFolders;
     }
 
@@ -379,13 +392,11 @@ public class Utils {
                 while (cursor.moveToNext()) {
                     String audioName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME));
                     long audioId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
-                    long audioSizeInBytes = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
                     String audioPath = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+                    long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
+                    String readableFileSize = getFileSize(fileSize);
 
-                    // Convert bytes to megabytes
-                    double audioSizeInMB = (audioSizeInBytes / (1024.0 * 1024.0));
-
-                    DataModel dataModel = new DataModel(audioId, audioPath, audioName, audioSizeInMB);
+                    DataModel dataModel = new DataModel(audioId, audioPath, audioName, readableFileSize);
                     dataModelList.add(dataModel);
                 }
             }
@@ -422,9 +433,10 @@ public class Utils {
                     long imageId = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID));
                     String imagePath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
                     String imageName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
-                    long imageSizeInBytes = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
+                    long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
+                    String readableFileSize = getFileSize(fileSize);
 
-                    DataModel dataModel = new DataModel(imageId, imagePath, imageName, imageSizeInBytes);
+                    DataModel dataModel = new DataModel(imageId, imagePath, imageName, readableFileSize);
                     imageFiles.add(dataModel);
                 } while (cursor.moveToNext());
             }
@@ -441,6 +453,7 @@ public class Utils {
 
     public static List<String> getImageFolders(Context context) {
         List<String> imageFolders = new ArrayList<>();
+        Set<String> folderPaths = new HashSet<>(); // Use Set to avoid duplicates
 
         String[] projection = {MediaStore.Images.Media.DATA};
         Uri imageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -452,10 +465,12 @@ public class Utils {
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-                    String folderPath = imagePath.substring(0, imagePath.lastIndexOf("/")); // Extract folder path
+                    File imageFile = new File(imagePath);
+                    String folderPath = imageFile.getParent(); // Extract folder path using File's getParent method
 
-                    // Increment count for each folder
-                    imageFolders.add(folderPath);
+                    if (folderPath != null) {
+                        folderPaths.add(folderPath);
+                    }
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -466,6 +481,7 @@ public class Utils {
             }
         }
 
+        imageFolders.addAll(folderPaths); // Add unique folder paths to the list
         return imageFolders;
     }
 
@@ -494,12 +510,10 @@ public class Utils {
                     long imageId = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID));
                     String imagePath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
                     String imageName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
-                    long imageSizeInBytes = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
+                    long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
+                    String readableFileSize = getFileSize(fileSize);
 
-                    // Convert bytes to megabytes
-                    double imageSizeInMB = (imageSizeInBytes / (1024.0 * 1024.0));
-
-                    DataModel dataModel = new DataModel(imageId, imagePath, imageName, imageSizeInBytes);
+                    DataModel dataModel = new DataModel(imageId, imagePath, imageName, readableFileSize);
                     dataModelList.add(dataModel);
                 }
             }
@@ -509,4 +523,38 @@ public class Utils {
 
         return dataModelList;
     }
+
+    public static String getFileSize(long size) {
+        if (size <= 0) return "0";
+
+        final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+
+        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+    }
+
+    // Method to share images
+    public static void shareImage(Context context, Uri imageUri, String title) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        context.startActivity(Intent.createChooser(shareIntent, title));
+    }
+
+    // Method to share videos
+    public static void shareVideo(Context context, Uri videoUri, String title) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("video/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, videoUri);
+        context.startActivity(Intent.createChooser(shareIntent, title));
+    }
+
+    // Method to share audio
+    public static void shareAudio(Context context, Uri audioUri, String title) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("audio/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, audioUri);
+        context.startActivity(Intent.createChooser(shareIntent, title));
+    }
+
 }

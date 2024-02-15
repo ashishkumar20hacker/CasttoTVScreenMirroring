@@ -57,6 +57,10 @@ public class DashboardActivity extends AppCompatActivity {
         binding.videosBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ShowMediaActivity.class).putExtra("title", "Videos")));
         binding.audiosBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ShowMediaActivity.class).putExtra("title", "Audios")));
 
+        binding.onlineImgBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), OnlineImagesActivity.class)));
+        binding.youtubeBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WebViewActivity.class).putExtra("intent_name","youtube")));
+        binding.driveBt.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WebViewActivity.class).putExtra("intent_name","drive")));
+
     }
 
     @Override
