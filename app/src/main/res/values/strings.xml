@@ -30,4 +30,18 @@
     <string name="no_images_found">No Images Found</string>
     <string name="no_audios_found">No Audios Found</string>
     <string name="online_images">Online Images</string>
+    <string name="web_browser">Web Browser</string>
+    <string name="smart_tv">Smart TV</string>
+    <string name="mirroring_web_browser">Mirroring Web Browser</string>
+    <string name="start_mirroring">Start Mirroring</string>
+    <string name="_1_make_sure_your_phone_and_cast_device_are_connected_to_the_same_wi_fi">1. Make sure your phone and cast device are connected to the same Wi-Fi</string>
+    <string name="_2_open_this_website_on_the_other_device">2. Open this website on the other device:</string>
+    <string name="http_192_168_0_155_2904">http://192.168.0.155:2904</string>
+    <string name="_3_click_start_mirroring">3. Click “Start Mirroring”</string>
+    <string name="how_to_start_screen_mirroring_t">How to Start Screen Mirroring</string>
+    <string name="_1_make_sure_your_phone_and_tv_connected_to_the_same_wi_fi_network">1. Make sure your phone and TV connected to the same Wi-Fi network</string>
+    <string name="_2_click_to_select_screen_mirroring_feature">2. Click to select screen Mirroring Feature</string>
+    <string name="_3_click_the_start_mirroring_button_to_start_using_the_feature">3. Click the start mirroring button to start using the feature</string>
+    <string name="_4_connection_successful_now_your_phone_screen_is_displayed_on_the_tv">4. Connection successful. Now your phone screen is displayed on the TV</string>
+    <string name="start_screen_mirroring">Start Screen Mirroring</string>
 </resources>

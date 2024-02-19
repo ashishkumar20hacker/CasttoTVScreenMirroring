@@ -1,5 +1,7 @@
 package com.ide.codekit.casttotv.Fragments;
 
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ide.codekit.casttotv.Activity.HelpActivity;
+import com.ide.codekit.casttotv.Activity.MirroringWebBrowserActivity;
+import com.ide.codekit.casttotv.Activity.WebViewActivity;
 import com.ide.codekit.casttotv.Extras.Utils;
+import com.ide.codekit.casttotv.R;
 import com.ide.codekit.casttotv.databinding.FragmentScreenMirroringBinding;
 
 /**
@@ -60,6 +66,8 @@ public class ScreenMirroringFragment extends Fragment {
 
     FragmentScreenMirroringBinding binding;
 
+    boolean isTvSelected = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,6 +78,33 @@ public class ScreenMirroringFragment extends Fragment {
 
         binding.backBt.setOnClickListener(view -> {
             requireActivity().onBackPressed();
+        });
+
+        binding.webBrowserBt.setTextColor(requireActivity().getColor(R.color.grey));
+        binding.webBrowserBt.setCompoundDrawableTintList(ColorStateList.valueOf(requireActivity().getColor(R.color.grey)));
+
+        binding.smartTvBt.setOnClickListener(view -> {
+            isTvSelected = true;
+            binding.smartTvBt.setTextColor(requireActivity().getColor(R.color.green));
+            binding.smartTvBt.setCompoundDrawableTintList(null);
+            binding.webBrowserBt.setTextColor(requireActivity().getColor(R.color.grey));
+            binding.webBrowserBt.setCompoundDrawableTintList(ColorStateList.valueOf(requireActivity().getColor(R.color.grey)));
+        });
+
+        binding.webBrowserBt.setOnClickListener(view -> {
+            isTvSelected = false;
+            binding.webBrowserBt.setTextColor(requireActivity().getColor(R.color.green));
+            binding.webBrowserBt.setCompoundDrawableTintList(null);
+            binding.smartTvBt.setTextColor(requireActivity().getColor(R.color.grey));
+            binding.smartTvBt.setCompoundDrawableTintList(ColorStateList.valueOf(requireActivity().getColor(R.color.grey)));
+        });
+
+        binding.startBt.setOnClickListener(view -> {
+            if (isTvSelected) {
+                startActivity(new Intent(requireActivity(), HelpActivity.class));
+            } else {
+                startActivity(new Intent(requireActivity(), MirroringWebBrowserActivity.class));
+            }
         });
 
         return binding.getRoot();

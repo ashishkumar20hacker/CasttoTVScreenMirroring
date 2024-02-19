@@ -17,8 +17,10 @@ public class WebViewActivity extends AppCompatActivity {
     ActivityWebViewBinding binding;
     String youtube_url = "https://www.youtube.com/";
     String drive_url = "https://drive.google.com/drive/home";
-    String main_url = youtube_url;
+    String google_url = "https://www.google.com/";
+    String main_url = google_url;
     String intent_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +30,12 @@ public class WebViewActivity extends AppCompatActivity {
 
         intent_name = getIntent().getStringExtra("intent_name");
         assert intent_name != null;
-        if (intent_name.equalsIgnoreCase("youtube")){
+        if (intent_name.equalsIgnoreCase("youtube")) {
             main_url = youtube_url;
-        } else {
+        } else if (intent_name.equalsIgnoreCase("drive")) {
             main_url = drive_url;
+        } else {
+            main_url = google_url;
         }
 
         WebSettings webSettings = binding.webView.getSettings();

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
-    tools:context=".Fragments.ScreenMirroringFragment">
+    tools:context=".Activity.MirroringWebBrowserActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="@string/screen_mirroring"
+            android:text="@string/mirroring_web_browser"
             android:textColor="@color/green"
             android:textSize="16sp" />
 
@@ -55,74 +55,53 @@
             android:orientation="vertical"
             android:paddingBottom="90dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:text="@string/make_sure_your_phone_and_cast_device_are_connected_to_the_same_wi_fi"
-                android:textColor="#CCFFFFFF"
-                android:textSize="16sp" />
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_20sdp"
                 android:adjustViewBounds="true"
-                android:maxHeight="@dimen/_140sdp"
-                android:src="@drawable/phone_to_tv" />
+                android:maxHeight="@dimen/_120sdp"
+                android:src="@drawable/wifi" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:text="@string/choose_connect_you_want"
+                android:text="@string/_1_make_sure_your_phone_and_cast_device_are_connected_to_the_same_wi_fi"
                 android:textColor="#CCFFFFFF"
                 android:textSize="16sp" />
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_2_open_this_website_on_the_other_device"
+                android:textColor="#CCFFFFFF"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/smart_tv_bt"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_90sdp"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/db_bt_bg_1"
-                    android:drawableTop="@drawable/tv"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:padding="@dimen/_15sdp"
-                    android:text="@string/smart_tv"
-                    android:textColor="@color/green"
-                    android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/http_192_168_0_155_2904"
+                android:textColor="@color/green"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/web_browser_bt"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_90sdp"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/db_bt_bg_1"
-                    android:drawableTop="@drawable/web_browser"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:padding="@dimen/_15sdp"
-                    android:text="@string/web_browser"
-                    android:textColor="@color/green"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_3_click_start_mirroring"
+                android:textColor="#CCFFFFFF"
+                android:textSize="16sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/start_bt"
@@ -145,12 +124,9 @@
                     android:gravity="center"
                     android:padding="@dimen/_10sdp"
                     android:paddingHorizontal="@dimen/_8sdp"
-                    android:text="@string/start_screen_mirroring"
+                    android:text="@string/start_mirroring"
                     android:textColor="@color/green"
                     android:textSize="14sp" />
-
-<!--                android:drawableStart="@drawable/infocircle"-->
-<!--                android:drawablePadding="@dimen/_10sdp"-->
 
             </androidx.cardview.widget.CardView>
 

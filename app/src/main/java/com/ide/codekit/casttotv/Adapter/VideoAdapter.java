@@ -13,27 +13,27 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.ide.codekit.casttotv.Model.DataModel;
+import com.ide.codekit.casttotv.Model.MediaDataModel;
 import com.ide.codekit.casttotv.databinding.ItemAudioBinding;
 import com.ide.codekit.casttotv.databinding.ItemMediaBinding;
 import com.ide.codekit.casttotv.databinding.ItemVideoPlayerBinding;
 
 import java.util.Objects;
 
-public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder> {
+public class VideoAdapter extends ListAdapter<MediaDataModel, RecyclerView.ViewHolder> {
 
     public static final int VIEW_GRID = 1;
     public static final int VIEW_LINEAR = 2;
     public static final int VIEW_AUDIO = 3;
 
-    static DiffUtil.ItemCallback<DataModel> diffCallback = new DiffUtil.ItemCallback<DataModel>() {
+    static DiffUtil.ItemCallback<MediaDataModel> diffCallback = new DiffUtil.ItemCallback<MediaDataModel>() {
         @Override
-        public boolean areItemsTheSame(@NonNull DataModel oldItem, @NonNull DataModel newItem) {
+        public boolean areItemsTheSame(@NonNull MediaDataModel oldItem, @NonNull MediaDataModel newItem) {
             return Objects.equals(oldItem, newItem);
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull DataModel oldItem, @NonNull DataModel newItem) {
+        public boolean areContentsTheSame(@NonNull MediaDataModel oldItem, @NonNull MediaDataModel newItem) {
             return Objects.equals(oldItem, newItem);
         }
     };
@@ -79,7 +79,7 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        DataModel dataModel = getItem(position);
+        MediaDataModel dataModel = getItem(position);
 
         switch (holder.getItemViewType()) {
             case VIEW_GRID:
@@ -109,7 +109,7 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
         return currentViewType;
     }
 
-    private void bindCommonData(ViewHolderCommon holder, DataModel dataModel) {
+    private void bindCommonData(ViewHolderCommon holder, MediaDataModel dataModel) {
         if (dataModel != null) {
             holder.loadImage(dataModel);
 //            holder.setupFavoriteButton(url);
@@ -124,7 +124,7 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
 
         }
 
-        abstract void loadImage(DataModel dataModel);
+        abstract void loadImage(MediaDataModel dataModel);
 
 //        abstract void setupFavoriteButton(String url);
     }
@@ -138,7 +138,7 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
         }
 
         @Override
-        void loadImage(DataModel dataModel) {
+        void loadImage(MediaDataModel dataModel) {
             try {
                 Glide.with(context).load(dataModel.getPath()).into(imageView);
             } catch (Exception e) {
@@ -161,7 +161,7 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
         }
 
         @Override
-        void loadImage(DataModel dataModel) {
+        void loadImage(MediaDataModel dataModel) {
             try {
                 Glide.with(context).load(dataModel.getPath()).into(imageView);
                 title.setText(dataModel.getName());
@@ -192,7 +192,7 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
         }
 
         @Override
-        void loadImage(DataModel dataModel) {
+        void loadImage(MediaDataModel dataModel) {
             try {
                 title.setText(dataModel.getName());
                 size.setText(dataModel.getSize());
@@ -211,8 +211,8 @@ public class VideoAdapter extends ListAdapter<DataModel, RecyclerView.ViewHolder
     }
 
     public interface DataClickListener {
-        void onDataClick(DataModel dataModel);
+        void onDataClick(MediaDataModel dataModel);
 
-        void onShare(DataModel model);
+        void onShare(MediaDataModel model);
     }
 }

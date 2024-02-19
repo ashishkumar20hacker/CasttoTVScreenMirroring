@@ -4,12 +4,17 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:allowBackup="true"
@@ -23,6 +28,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CastToTVScreenMirroring"
         tools:targetApi="31">
+        <service android:name=".Extras.ScreenMirroringService"/>
+
+        <activity
+            android:name=".Activity.HelpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MirroringWebBrowserActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.WebViewActivity"
             android:exported="false" />

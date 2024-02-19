@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.ide.codekit.casttotv.Adapter.VideoAdapter;
 import com.ide.codekit.casttotv.Extras.Utils;
 import com.ide.codekit.casttotv.Extras.VideoDialog;
-import com.ide.codekit.casttotv.Model.DataModel;
+import com.ide.codekit.casttotv.Model.MediaDataModel;
 import com.ide.codekit.casttotv.databinding.FragmentVideoPlayerBinding;
 
 import java.util.List;
@@ -82,7 +82,7 @@ public class VideoPlayerFragment extends Fragment {
     }
 
     private void setVideoData() {
-        List<DataModel> videoList;
+        List<MediaDataModel> videoList;
         videoList = Utils.getAllVideoList(requireActivity());
         if (videoList.size() == 0) {
             binding.vpRv.setVisibility(View.GONE);
@@ -90,13 +90,13 @@ public class VideoPlayerFragment extends Fragment {
         } else {
             VideoAdapter adapter = new VideoAdapter(new VideoAdapter.DataClickListener() {
                 @Override
-                public void onDataClick(DataModel dataModel) {
+                public void onDataClick(MediaDataModel dataModel) {
                     VideoDialog dialog = new VideoDialog(requireActivity(),  dataModel.getPath());
                     dialog.show();
                 }
 
                 @Override
-                public void onShare(DataModel model) {
+                public void onShare(MediaDataModel model) {
 
                 }
             });

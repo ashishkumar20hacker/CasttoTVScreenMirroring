@@ -1,47 +1,47 @@
 package com.ide.codekit.casttotv.Model;
 
 public class DataModel {
-    private long id;
-    private String path;
-    private String name;
-    private String size;
+    private String serviceName;
+    private String address;
+    private String hostAddress;
 
-    public DataModel(long id, String path, String name, String size) {
-        this.id = id;
-        this.path = path;
-        this.name = name;
-        this.size = size;
+    public DataModel(String serviceName, String address, String hostAddress) {
+        this.serviceName = serviceName;
+        this.address = address;
+        this.hostAddress = hostAddress;
     }
 
-    public long getId() {
-        return id;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
-    public String getPath() {
-        return path;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getName() {
-        return name;
+    public String getHostAddress() {
+        return hostAddress;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHostAddress(String hostAddress) {
+        this.hostAddress = hostAddress;
     }
 
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
+    // Optionally, override toString() for debugging or logging purposes
+    @Override
+    public String toString() {
+        return "DataModel{" +
+                "serviceName='" + serviceName + '\'' +
+                ", address='" + address + '\'' +
+                ", hostAddress='" + hostAddress + '\'' +
+                '}';
     }
 }

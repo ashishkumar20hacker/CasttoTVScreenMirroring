@@ -13,7 +13,7 @@ import com.ide.codekit.casttotv.Extras.AudioDialog;
 import com.ide.codekit.casttotv.Extras.ImageDialog;
 import com.ide.codekit.casttotv.Extras.Utils;
 import com.ide.codekit.casttotv.Extras.VideoDialog;
-import com.ide.codekit.casttotv.Model.DataModel;
+import com.ide.codekit.casttotv.Model.MediaDataModel;
 import com.ide.codekit.casttotv.R;
 import com.ide.codekit.casttotv.databinding.ActivityShowMediaBinding;
 
@@ -86,14 +86,14 @@ public class ShowMediaActivity extends AppCompatActivity {
         for (String folderPath : folderPaths) {
             String folderName = new File(folderPath).getName();
             if (folderName.equalsIgnoreCase(selectedCategory)) {
-                List<DataModel> details = getDataModels(folderPath);
+                List<MediaDataModel> details = getDataModels(folderPath);
                 setAdapter(details);
                 return; // Stop iterating once the matching category is found
             }
         }
     }
 
-    private List<DataModel> getDataModels(String folderPath) {
+    private List<MediaDataModel> getDataModels(String folderPath) {
         if (title.equals("Images")) {
             binding.noMediaTv.setText(getString(R.string.no_images_found));
             return Utils.getImagesFromFolder(this, folderPath);
@@ -106,14 +106,14 @@ public class ShowMediaActivity extends AppCompatActivity {
         }
     }
 
-    private void setAdapter(List<DataModel> details) {
+    private void setAdapter(List<MediaDataModel> details) {
         if (details.size() == 0) {
             binding.mediaRv.setVisibility(View.GONE);
             binding.loader.setVisibility(View.VISIBLE);
         } else {
             VideoAdapter adapter = new VideoAdapter(new VideoAdapter.DataClickListener() {
                 @Override
-                public void onDataClick(DataModel dataModel) {
+                public void onDataClick(MediaDataModel dataModel) {
                     if (title.equals("Images")) {
                         ImageDialog dialog = new ImageDialog(ShowMediaActivity.this, dataModel.getPath());
                         dialog.show();
@@ -127,7 +127,7 @@ public class ShowMediaActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onShare(DataModel model) {
+                public void onShare(MediaDataModel model) {
                     shareFile(model.getPath());
                 }
             });

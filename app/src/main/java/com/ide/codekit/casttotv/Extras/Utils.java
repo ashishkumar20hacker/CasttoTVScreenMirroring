@@ -7,7 +7,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,24 +15,29 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.net.Uri;
+import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.ide.codekit.casttotv.BuildConfig;
 import com.ide.codekit.casttotv.Model.DataModel;
+import com.ide.codekit.casttotv.Model.MediaDataModel;
 import com.ide.codekit.casttotv.R;
 
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -178,8 +182,8 @@ public class Utils {
                 .setInterpolator(new AccelerateDecelerateInterpolator());
     }
 
-    public static List<DataModel> getAllVideoList(Context context) {
-        List<DataModel> dataModelList = new ArrayList<>();
+    public static List<MediaDataModel> getAllVideoList(Context context) {
+        List<MediaDataModel> dataModelList = new ArrayList<>();
 
         String[] projection = {
                 MediaStore.Video.Media._ID,
@@ -207,7 +211,7 @@ public class Utils {
                     String readableFileSize = getFileSize(fileSize);
 
 
-                    DataModel dataModel = new DataModel(videoId, videoPath, videoName, readableFileSize);
+                    MediaDataModel dataModel = new MediaDataModel(videoId, videoPath, videoName, readableFileSize);
                     dataModelList.add(dataModel);
                 }
             }
@@ -252,8 +256,8 @@ public class Utils {
         return videoFolders;
     }
 
-    public static List<DataModel> getVideosFromFolder(Context context, String folderPath) {
-        List<DataModel> dataModelList = new ArrayList<>();
+    public static List<MediaDataModel> getVideosFromFolder(Context context, String folderPath) {
+        List<MediaDataModel> dataModelList = new ArrayList<>();
 
         String[] projection = {
                 MediaStore.Video.Media._ID,
@@ -280,7 +284,7 @@ public class Utils {
                     long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media.SIZE));
                     String readableFileSize = getFileSize(fileSize);
 
-                    DataModel dataModel = new DataModel(videoId, videoPath, videoName, readableFileSize);
+                    MediaDataModel dataModel = new MediaDataModel(videoId, videoPath, videoName, readableFileSize);
                     dataModelList.add(dataModel);
                 }
             }
@@ -291,8 +295,8 @@ public class Utils {
         return dataModelList;
     }
 
-    public static List<DataModel> getAllAudioFiles(Context context) {
-        List<DataModel> audioFiles = new ArrayList<>();
+    public static List<MediaDataModel> getAllAudioFiles(Context context) {
+        List<MediaDataModel> audioFiles = new ArrayList<>();
 
         // Define the columns you want to retrieve
         String[] projection = {
@@ -319,7 +323,7 @@ public class Utils {
                     String audioName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME));
                     long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
                     String readableFileSize = getFileSize(fileSize);
-                    DataModel dataModel = new DataModel(audioId, audioPath, audioName, readableFileSize);
+                    MediaDataModel dataModel = new MediaDataModel(audioId, audioPath, audioName, readableFileSize);
                     audioFiles.add(dataModel);
                 } while (cursor.moveToNext());
             }
@@ -368,8 +372,8 @@ public class Utils {
         return audioFolders;
     }
 
-    public static List<DataModel> getAudiosFromFolder(Context context, String folderPath) {
-        List<DataModel> dataModelList = new ArrayList<>();
+    public static List<MediaDataModel> getAudiosFromFolder(Context context, String folderPath) {
+        List<MediaDataModel> dataModelList = new ArrayList<>();
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
@@ -396,7 +400,7 @@ public class Utils {
                     long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
                     String readableFileSize = getFileSize(fileSize);
 
-                    DataModel dataModel = new DataModel(audioId, audioPath, audioName, readableFileSize);
+                    MediaDataModel dataModel = new MediaDataModel(audioId, audioPath, audioName, readableFileSize);
                     dataModelList.add(dataModel);
                 }
             }
@@ -407,8 +411,8 @@ public class Utils {
         return dataModelList;
     }
 
-    public static List<DataModel> getAllImageFiles(Context context) {
-        List<DataModel> imageFiles = new ArrayList<>();
+    public static List<MediaDataModel> getAllImageFiles(Context context) {
+        List<MediaDataModel> imageFiles = new ArrayList<>();
 
         // Define the columns you want to retrieve
         String[] projection = {
@@ -436,7 +440,7 @@ public class Utils {
                     long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
                     String readableFileSize = getFileSize(fileSize);
 
-                    DataModel dataModel = new DataModel(imageId, imagePath, imageName, readableFileSize);
+                    MediaDataModel dataModel = new MediaDataModel(imageId, imagePath, imageName, readableFileSize);
                     imageFiles.add(dataModel);
                 } while (cursor.moveToNext());
             }
@@ -485,8 +489,8 @@ public class Utils {
         return imageFolders;
     }
 
-    public static List<DataModel> getImagesFromFolder(Context context, String folderPath) {
-        List<DataModel> dataModelList = new ArrayList<>();
+    public static List<MediaDataModel> getImagesFromFolder(Context context, String folderPath) {
+        List<MediaDataModel> dataModelList = new ArrayList<>();
 
         String[] projection = {
                 MediaStore.Images.Media._ID,
@@ -513,7 +517,7 @@ public class Utils {
                     long fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
                     String readableFileSize = getFileSize(fileSize);
 
-                    DataModel dataModel = new DataModel(imageId, imagePath, imageName, readableFileSize);
+                    MediaDataModel dataModel = new MediaDataModel(imageId, imagePath, imageName, readableFileSize);
                     dataModelList.add(dataModel);
                 }
             }
@@ -555,6 +559,51 @@ public class Utils {
         shareIntent.setType("audio/*");
         shareIntent.putExtra(Intent.EXTRA_STREAM, audioUri);
         context.startActivity(Intent.createChooser(shareIntent, title));
+    }
+    public static LiveData<List<DataModel>> getCasts(Activity activity) {
+        MutableLiveData<List<DataModel>> mutableLiveData = new MutableLiveData<>();
+        final ArrayList<DataModel> arrayList = new ArrayList<>();
+        new NearbyDeviceScanner(activity).startScan(new NearbyDeviceScanner.DeviceScanListener() {
+            @Override
+            public void onScanFailed(String str) {
+                // Handle scan failure if needed
+            }
+
+            @Override
+            public void onScanStarted() {
+                // Handle scan start if needed
+            }
+
+            @Override
+            public void onScanStopped() {
+                // Handle scan stop if needed
+            }
+
+            @Override
+            public void onDeviceFound(NsdServiceInfo nsdServiceInfo) {
+                String serviceName = nsdServiceInfo.getServiceName();
+                String hostAddress = nsdServiceInfo.getHost().getHostAddress();
+                String arrays = Arrays.toString(nsdServiceInfo.getHost().getAddress());
+                Log.e("onDeviceFound: ", serviceName + "   " + hostAddress);
+                synchronized (arrayList) {
+                    arrayList.add(new DataModel(serviceName, arrays, hostAddress));
+                }
+                mutableLiveData.postValue(arrayList);
+            }
+
+            @Override
+            public void onDeviceLost(NsdServiceInfo nsdServiceInfo) {
+                String serviceName = nsdServiceInfo.getServiceName();
+                String hostAddress = nsdServiceInfo.getHost().getHostAddress();
+                String arrays = Arrays.toString(nsdServiceInfo.getHost().getAddress());
+                Log.e("onDeviceLost: ", serviceName + "   " + hostAddress);
+                synchronized (arrayList) {
+                    arrayList.remove(new DataModel(serviceName, arrays, hostAddress));
+                }
+                mutableLiveData.postValue(arrayList);
+            }
+        });
+        return mutableLiveData;
     }
 
 }
